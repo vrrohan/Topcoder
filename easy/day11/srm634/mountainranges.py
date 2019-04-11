@@ -65,6 +65,8 @@ def countPeaks(heights) :
 heights = [2,5,3,7,2,8,1,3,1]
 heights2 = [80, 4, 7, 73, 95, 56, 18, 71, 16, 26, 99, 97, 59, 54, 28, 91, 58, 16, 84, 52, 95, 37, 38, 70, 7, 89, 85]
 heights3 = [55, 27, 91, 86, 50, 21, 95, 98, 7, 93, 46, 95, 63, 89, 93, 71, 41, 25, 75, 64, 36, 72, 56, 47, 3, 7, 97, 34, 83, 75, 83, 25, 56, 41, 13, 26, 92, 34, 55, 99, 12, 71, 24, 94, 91, 83, 51]
+heights4 = [34, 86, 81, 45]
 print(countPeaks(heights))
 print(countPeaks(heights2))
 print(countPeaks(heights3))
+print(countPeaks(heights4))

@@ -52,24 +52,12 @@ public class SRM634MountainRanges {
 		int totalPeaks = 0;
 		if (heights.length == 1) {
 			return 1;
-		} else if (heights.length == 2) {
-			if (heights[0] == heights[1]) {
-				return 0;
-			} else {
-				return 1;
-			}
-		} else if (heights.length > 2) {
-			if (heights[0] > heights[1]) {
-				totalPeaks++;
-			}
-			if (heights[heights.length - 1] > heights[heights.length - 2]) {
-				totalPeaks++;
-			}
-			for (int i = 1; i < heights.length - 1; i++) {
-				if (heights[i] > heights[i - 1] && heights[i] > heights[i + 1]) {
-					totalPeaks++;
-				}
-			}
+		}
+		for (int i = 0; i < heights.length; i++) {
+			totalPeaks = (i == 0 && heights[i] > heights[i + 1]) ? totalPeaks + 1
+					: (i == heights.length - 1 && heights[i] > heights[i - 1]) ? totalPeaks + 1
+							: (i > 0 && i <= heights.length - 2 && heights[i] > heights[i - 1]
+									&& heights[i] > heights[i + 1]) ? totalPeaks + 1 : totalPeaks;
 		}
 
 		return totalPeaks;
@@ -77,7 +65,8 @@ public class SRM634MountainRanges {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] heights = { 1, 2, 3, 4, 4, 3, 2, 1 };
+		int[] heights = { 55, 27, 91, 86, 50, 21, 95, 98, 7, 93, 46, 95, 63, 89, 93, 71, 41, 25, 75, 64, 36, 72, 56, 47,
+				3, 7, 97, 34, 83, 75, 83, 25, 56, 41, 13, 26, 92, 34, 55, 99, 12, 71, 24, 94, 91, 83, 51 };
 		System.out.println(countPeaks(heights));
 	}
 
