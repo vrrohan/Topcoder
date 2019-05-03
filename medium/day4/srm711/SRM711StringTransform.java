@@ -1,0 +1,95 @@
+package PracticeArena.Medium;
+
+/*
+Problem Statement for StringTransform
+Problem Statement
+    	
+	You are given the Strings s and t. Both strings have the same length. You are allowed to modify s. In each step you may choose two valid indices i and j such that i > j, and change s[i] to s[j]. 
+	For example, if s = "abc", you may choose i=2 and j=0, which will change s to "aba".
+	Return "Possible" (quotes for clarity) if you can change s into t by a sequence of zero or more steps. Otherwise, return "Impossible".
+	Note that the return values are case-sensitive.
+ 
+Definition
+Class:	StringTransform
+Method:	isPossible
+Parameters:	String, String
+Returns:	String
+Method signature:	String isPossible(String s, String t)
+(be sure your method is public)
+    
+Constraints
+-	s will contain between 1 and 1,000 characters, inclusive.
+-	s and t will be of equal length.
+-	s will contain only lowercase English letters.
+-	t will contain only lowercase English letters.
+ 
+Examples
+0)	"abc"
+"aba"
+Returns: "Possible"
+This is the example from the problem statement. We can change s into t by changing s[2] to s[0].
+
+1)	"abc"
+"bbc"
+Returns: "Impossible"
+Note that in each step i must be greater than j. You are not allowed to choose i=0 and j=1.
+
+2)	"topcoder"
+"topcoder"
+Returns: "Possible"
+The two strings are equal, so we don't have to make any changes.
+
+3)	"rdmcxnnbbe"
+"rdrrxrnxbe"
+Returns: "Possible"
+
+4)	"rdmcxnnbbe"
+"rdqrxrnxbe"
+Returns: "Impossible"
+*/
+
+public class SRM711StringTransform {
+
+	public static String isPossible(String s, String t) {
+		String isTransformationPossible = "Possible";
+
+		if (s.compareTo(t) != 0 && s.charAt(0) != t.charAt(0)) {
+			isTransformationPossible = "Impossible";
+		} else {
+
+			// loop over each character of both s & t one by one
+			for (int i = 1; i < s.length(); i++) {
+				// If both s & t at same index has different characters
+				if (s.charAt(i) != t.charAt(i)) {
+					// check if s substring from 0 to i contains t character at
+					// i
+					String subStringOfS = s.substring(0, i);
+					// if we found character at s earlier, it means s to t
+					// transformation is possible
+					// if not, then s to t transformation is not possible
+					if (!subStringOfS.contains(String.valueOf(t.charAt(i)))) {
+						isTransformationPossible = "Impossible";
+						break;
+					}
+				} // outer if loop ends...
+			} // for loop ends...
+		} // else ends...
+		return isTransformationPossible;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println(isPossible("rdmcxnnbbe", "rdrrxrnxbe"));
+		System.out.println(isPossible(
+				"hhjxrjjqalhcsdleqvrfcilnsxvhfdyojqyiwpqhtjbqrrnwcmtrvpmivsbwriccqtrzrdbhdepdmfkmvtrlbbczsagheprwpqebiyfnaqweruacxxrtboometosdlnhaffiungnlnnnhgxhzihdulqkvpjgadqjhgxkalxhafygsyyrygilzykqbatkokfcsjekffrbzfalsodcdtlzsweguiocmtmrhinvbynmyhozenixazegftaeectqyjletznprvoxzkltvvljmsmcfejakimvihztemxwwkegpwwsqwscycgefgfzmtcgenaxnpunuzyhlbjlptsikkvzusegtjyuaobxwgyrstsfjcfuicdlkpuvdbifvtdxsqwzhlyohnmmhxbhxbtmuhwuyyfqwlyxkirbzjdtgabutlgknjosyvjffcwyvypvaymeaelnzivlbztuelstxmodhmrmylnkojosqdzieklvwpvgtysxqumuhjfkzeliylnwdatwqxycpgkxulevnuexeelkqjtzmjewkcooiineabvxgyqwkgrjrqickegnsbjyxbexvfnytcdamuqkvuvcoklblxiogcmvecbqcpoxchwrkfwvacxgufsixkgqfjioqudjxozsvvwdfqxlgcumqnevhdgyynjxtldsbdmybforqehjdydvmjngfgwnjpvohbdyfnxuwxilulykakdznzrmdnntreminoerpekywxnhnkuirmclculohldyqtupxgjwiesombqmmrfnayvwlmmqothsbfnhzehoxmzvygeheezwleqsneyehzhrdnrdafclgayqywbgfimniyxdtvectgwdjdjiidxkqiwlxcgduyxegukwpomnmqfrpwdgvmxmovyexkxlohuqoyvyogvgcokwmkbrroblghjwevgzhwpcgvjvraplbokgxutafiobldrxjlnsesjymlicirxucfqxcqjjlmdzsddf",
+				"hhhhxhhjhhjhhhxxjxhhxhxjhhhnnjqxhhaijhhjjhhxhghhxxqlhhhhjjjjxircrhmhjhqhjrhxhjynqlhhhhoxxfxxnhxhxhicxrhihxooxhhxjhxijxnxrhrhnxinijxnmijjjsxihqjslhhijjqiqyjrxhhilqjsrxfwajxijhqcjhjhihjqbhhhhhikcjijqjdbhxwrhojhmxbjxzexcqlhvlihhihvbnrhrihfxhniyxfixcaxhijqmxhejxhihzrxykjllhxhmhmrlvqamqfqhhhhriqlhqxqxquemwrklcxshcqvvhqmehhhgnhnhiizllhhixomhhvyjihkhiuutjililiymxjlxejvhhnkkcxmblljltooiuwxllhhhnmxjrqxkxhhhhhmhcqvhihijxlruyhjxfjfijghnhxhhvhixtjhmzhxqdidhzxqvjlqhkjqvxqhqhxhxhrbxfrjhwinxdphhhihfhxyjkhclihzmxjthnxfvxswahjrxcjgherfpkxhjxuhiqirwesvvrhsccdvpbiarxskviixxekoeqhakqqrivvqbhrjvtkxjhvwzhqjfqmfzdzzgzkkinpvxwfbhjonzhhjinzwroqqhizubrqxehihhkvjqqqlmwvjrhmiwlmmhhhxhijiinrinvgjhhjlqwjuhhrnhrmswgjghvhxxhcjdvxelvtcikxlukbhckhjjrzqfdhaqxhilixwhvkdoxqhnrvijuqxbwqwcqbqbqhhkxnopmihvehxhrvrnnunhxwjxxxwqiobdmvtuxxxzvryezrdpmpijjyhhzlgvnjhvhnldutyyqbrfjfqnkvfjjquhofhfniadhxllthujhuwtrdlmyqwxyitltbkuwiwherzyhlgvtulzehdxhxlhqmiowxmmkhjhxinbwfujqrohcxzuberzhocvlhtqvjqiuhmgivbvxwphhvxnrbhejndxqhhgeifjgkhzqch"));
+		System.out.println(isPossible(
+				"gwwencxqsmcshqvhtjvaubqviamywiktffhsbpgoolbzxrtazffucfmdgntiivphkdzlmwlotraigovpfdksatejvgrpowwtebtpqudbxolukaaqynbpwufvmaxtkyrnoesidjsytnvjflaqfbxnetwrqhrifkchbbgcgezrenfttvkqvzgnmvkiwwdbxecgdirywkvoliwifbghbasnckztlxqrxrigkyygzqkafsnxncrnnoyxebrnjqxtrqyjnptogtgyplprkakpajxwrtbplafamshkrzcxgfohcrgjrozygvhubrhpjdbrncqevhmhlfzgrxixsdjqkziphoqjqcihomfmursicmtlpfpvnkiemlqleovssoyymjcjkswzfcrrhfrrosurdaotuuggiuuqytalxpiomdszanemeotgobdzaxqbnnwuqsodygxjccqtzfooiodbandxdsbruvkucaefwdnhzrhtvkmdnbwqcdckdocxuzopgdkuypuayzgumemussttnbfgsnrwcbfbggvfqotglzmcnlcrdozfggbpsmxnxpgopjochyljiwhbabtyuwkosqqudyniibnfglibfvofnwufgudwjmaoetyztsnsybjihfvchjyjmakcvjktttdyvqraenmqawuxjddfvcyarphukgzrfobdkfcuuraulkyypmhxuffipchtgtvzpyggmjkrtndvvlujhaozzqxtqsbvcyvfaytbkxhnyjguhjibquzcvjwldjyuhfgvkxlzotrugzoxhohfoiykfaursygzkygfzbkxjnnrxfwpchnlnqbecjippxopwkzmhzqxbyfcmtwpkiodjtqzzrrxzgeoahjqeiecrczhjswmmbnlwxkbbipocvbhnjcnfihltvqjfiuskupvcihlnkoqrieqaihuqlcbupjyausspnamxthmbfsrzojuwempwgpifcwehnybfbacvdodktkjalsi",
+				"ggwwwwxgwwwwwgnsgggwcwwswwinswcnignnxpbwwlnncwnninnaknmdagnggdwswbgcwkwotgwwsoinssciataaopdvexegepwiauggxswbswucbabpxxkgevbwonpvnesewjibtswnrwasfvcnepcwaaragrctwbictgdrbwdxcsvnengnwbfgcznwfwnasninerwsganewgbqbasnekifvxigowngwfnazwbyfgnmiubdtpyxxnewignninwieetpwwrintannpevisscwubpitgncsnwvmgxwbwdwpsncextsetwediwjibzncqebeiglnwtbgncjnjqpzitvzqjomwhodjyxwwoctnlxccxrkpqnwxtytjtstzgajcaaoiwwuqiyjonwwpfgnonupndnkmalsaqesiagxefwieeafgvaeizazwbmnwiqechplaenewcniobbkwbaedixslzdvwdktwwgscnceasvetfctwguactgudxsvladhlxgdixkcklanzkniwqptgleqgdggdbvwnuwwcxnfnaejswvgwfsxiuwcbczwzpegabfanbwvxbfadwdcknguqffbplikxkgzytfxxgwnukbwdsjmvowhfztrxssdlqtvtchjntfcgcikktipaylurjttabkowxifnfqtdidvpnkntswkbcbrluvcnpwqerqcbcsfbipwyrkungdgbsuvadjvfpvdpponodrqnamuizebzvxwcerdutekbehwdbdmpxbkwalsguegrgtttzwqdetcatgovibcwsdtvornggqigvktuiuuirksaalzfwbfnmlanzaxkamrcwteqxxtrkahfnutpnwrqexnerbgwrhkcneiccxfnjxfswwgqyindkbifbbdbtrsfdchidteqzjuuioetxpwagtdkxagwwraqfibckoxgrcssscacixkbtlwiwlgtudztzwtjdwfrktmxnftrqsiahnwijddnd"));
+		System.out.println(isPossible("ittmcsvmoa", "jktvvblefw"));
+		System.out.println(isPossible(
+				"syumsztqtvtzrvaecebdnitanmbflwmtpnkmqzikfixzcgjalmtbyajmpuanakdzbegtjtywkbiqjdgbhhtohpppykqcyhrahwymyzaysdspjbjjrditmuojjcpewlqknoywpjkmnprljutibmqlpdxofqfkzumitkabpoireohxvruervlbdanrccgnxrygaamoijbtzigtjbdywqjatmguuhckqmbvkuiwbfkmpxgmnsaylbotgwvhtqcqjvqmmgeyraqrerjzaveiyvwpehpftrcjzksmijmtmvodgzhrhhlnfavifgdwuotilufkgmeczjkmwgzvdfyinknvmbdvehlnbgdshhmwuewrndvnfktzgoizbqvryiwgftvpwtevbvliryyytazdnujrjsoiqcrjgnexxnyegzcpkpgpjzhijyjmvqkyslofbjdgekwwnnsbjmedrwemlruwnxtyfpqoicsyyaluefleanqliereqplouoksivysxmcgtjbtszodrnkwrqbarwzlwpqcbxehjsueuhbleeyflhmstfdfpvmcqzraszwpjpjdhhtvunmgfivmerrenulizkwcjesxnfpewzcygpicdoevkohtqfwdpfhgliiviltkovulmfiqttweorywiltayjpbjbyexybsyqrdmdhwyvckxqyikeeklqrtveynmpcqmonqcwaaapmbgbfzuglyfkeclbqnleprefgfnfaovgkohyinapcbkpgmcqyzrobtraoziiuurjyiuofkrwppxtabxahjfwjephbxfszqqwjgugpyutktwejmszwqxgrknojgickhhvwdkxthxcbeccwxrdnaejmsrogizidrpinmotqmwwupsvvaszrbxdoqlzlyibcypirbgjtjgpnlytkzodkdupusqfpmjsysgfabjipepbtvfmsyazzyxivcuqcwfplfwxadwszvehetdyqxcpebvpwkirfyctek",
+				"syumszsqtvtzrvaecezdnitanmbflwmtpnkmqzikfixzcgjalmtbyajmpuanakdabcgtjtywkbiqjdgbhhtohpppykqcyhrahwymyzaysdspjbjjrditmuojjcpewlcknoywpjkmnprljutibmqlpdxofqfkzumickabpoireojxvruervlbdanrccgnxrygaamoijbtzigtabdyojjatmguuhckqmbvkuiwbfkmpxgmnsaylbotgwvhtqcqjvqmmyeyraqreyjzaveiyvrpvhpftrcjzksmijmtmvoegzhrhhlnfavifgdwuopilwfkgmzczjkmsgzvdfyinknvmbdvehlnbgdshhmwuewrndvnfktzgoqzbkvrpiwgftvpwtevbvliryaygazdnujrjsoiqcrjgnexxnyegzcpkpgpjzhijyjmmqkyslofbjdgekwwnnsbbmedrwemlruwnvtyfpnoicsyyaluefleanqliereqplouoksivyzxmcgtjbtszodrnkwrqiarwzlwpqcbxehjsueuhblelyflhmstfdfpvmpqzraszwpjpedhhtvunmgfijmerrenulizkwcjesxnfpewzcygpindoevkohtqfwdpfigliiviltkovulmfiqttweorywiltayjpbjbyexybsyqrdmdhwyvczxqiikeeklqrtveynmpcqmonqcwaaapmbgbfruglrfkeclbqvleprefgfnfaovgkohyinapcbkpgmcqyzrobtraoziiuuvjyiuofkrwppxtabxahjfwjephbxfszqqwjgugpyutktbejmszwqxgrknojgickwhvwmkithxcbeccwxrdnaejmsrsgizidrpinmotqmwwupsvvaszrbxdoplzlyibcypirogjtjgpnlytkzodkdwpusqfpmjsysgfabjipepbtvfmsyizzyxivcuqcwfplowxakwszvehetdyqxcwebvpwkirfyctek"));
+	}
+
+}
